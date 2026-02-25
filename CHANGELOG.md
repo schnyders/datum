@@ -53,10 +53,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Pester tests for credential handling.
 - Added knockout support for basetype arrays.
 - Added cleanup of knockout items.
-- Use powershell-yaml module for json handling
 
 ### Changed
 
+- Use `powershell-yaml` module for JSON file handling — JSON files are
+  now parsed via `ConvertFrom-Yaml` (JSON is valid YAML 1.2), producing
+  `OrderedDictionary` objects that receive full recursive `ConvertTo-Datum`
+  processing including datum handler invocation
+  ([#154](https://github.com/gaelcolas/datum/pull/154)).
 - Adjusted integration tests for knockout of basetype array items and hashtables keys.
 - Adjusted `Merge-DatumArray` to convert tuple key values to datum before merging
 - Added more tests to cover hash table merging with datum handlers ([#155](https://github.com/gaelcolas/datum/issues/155)).

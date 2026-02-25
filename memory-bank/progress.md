@@ -24,6 +24,12 @@
 - [x] Build system update to Sampler 0.119.0-preview0005
 - [x] Merge-DatumArray: tuple key values converted to datum before merging
 
+## PR #154 Improvements (2026-02-25)
+- [x] Moved CHANGELOG entry from "Added" to "Changed" with expanded description
+- [x] Created JSON/YAML equivalence integration tests (33 tests)
+- [x] Test coverage: type equivalence, nested structures, datum handler processing, hierarchy access, caching
+- [ ] Optional: Add JSON-specific error context in `Get-FileProviderData` (deferred)
+
 ## Documentation Improvements (2026-02-23)
 - [x] Fixed AllNodes iteration code samples for nested directory layouts (README.md, RSOP.md, AboutDatum.md)
 - [x] Fixed `-IncludeSource` output examples (was fake `__source` YAML keys, now shows actual right-aligned annotations)
@@ -57,7 +63,7 @@
 ## Project Health
 - **CI**: Azure DevOps Pipelines (build + test)
 - **Last build**: 2026-02-22 — **Build succeeded** (16 tasks, 0 errors, 0 warnings, 33s)
-- **Test results**: **158 passed, 0 failed, 3 skipped** (skipped due to known merge logic bug)
+- **Test results**: **191 passed, 0 failed, 3 skipped** (skipped due to known merge logic bug)
 - **Build version**: 0.41.0-docs0001 (GitVersion from feature/docs branch)
 - **Test coverage**: Code coverage threshold set to 0 (disabled) in build.yaml
 - **ProtectedData warnings**: Expected — test credential encrypted with different key, handler gracefully returns raw string
