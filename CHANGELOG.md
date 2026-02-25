@@ -9,6 +9,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added complete documentation system under `docs/` with index and
+  seven reference guides:
+  - `AboutDatum.md` — module overview, core concepts, and examples.
+  - `CmdletReference.md` — full parameter reference for all public
+    functions.
+  - `DatumYml.md` — `Datum.yml` configuration reference (stores,
+    resolution precedence, merge defaults, handlers).
+  - `Merging.md` — merge strategies, data types, knockout prefix,
+    and per-key configuration.
+  - `DatumHandlers.md` — handler system, ProtectedData, InvokeCommand,
+    and custom handler authoring.
+  - `RSOP.md` — RSOP computation, filtering, source tracking, caching,
+    and troubleshooting.
+  - `CodeLayers.md` — conceptual guide to layering DSC code with Roles
+    and Configurations backed by Datum data.
+- Documented `$env:DatumRsopIndentation` environment variable in
+  RSOP.md.
+- Added AllNodes iteration examples for both flat and nested directory
+  layouts in README.md, RSOP.md, and AboutDatum.md.
+
+### Changed
+
+- Rewrote README.md with structured sections, table of contents,
+  installation guide, merge strategy reference, handler documentation,
+  and public function catalogue.
+
+### Fixed
+
+- Fixed AllNodes iteration code samples that failed with nested
+  directory layouts (e.g. `AllNodes/Dev/DSCFile01.yml`).
+- Fixed `-IncludeSource` output examples to show actual right-aligned
+  annotations instead of fake `__source` YAML keys.
+- Fixed troubleshooting section referencing nonexistent
+  `$rsop.SomeKey.__source` pattern.
+- Documented `-IncludeSource`/`-RemoveSource` mutual exclusivity in
+  RSOP.md and CmdletReference.md.
+
+## [0.41.0] - 2026-02-03
+
+### Added
+
 - Added Pester tests for credential handling.
 - Added knockout support for basetype arrays.
 - Added cleanup of knockout items.
@@ -17,18 +58,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Adjusted integration tests for knockout of basetype array items and hashtables keys.
-- Updated build scripts to current version of Sampler (0.118.3-preview0001).
-- Fixed `ConvertTo-Datum` always returns `$null` when DatumHandler returns `$false` (#139)
-- Fixed PowerShell 7 compatibility of Copy-Object integration test.
-
-### Changed
-
-- Adjusted integration tests for knockout of basetype array items and hashtables keys
+- Adjusted `Merge-DatumArray` to convert tuple key values to datum before merging
+- Added more tests to cover hash table merging with datum handlers ([#155](https://github.com/gaelcolas/datum/issues/155)).
+- Updated build scripts to Sampler 0.119.0-preview0005.
+- Migrated all integration tests to Pester 5 syntax.
 
 ### Fixed
 
 - Fixed `ConvertTo-Datum` always returns `$null` when DatumHandler returns `$false` (#139).
 - Fixed `Merge-DatumArray` does not return an array when merged array contains a single hashtable.
+- Fixed hashtable array items are not merged when using datum handler for tuple keys (#155).
 - Fixed and extended tests for `Copy-Object`.
 - Fixed PowerShell 7 compatibility of Copy-Object integration test.
 
