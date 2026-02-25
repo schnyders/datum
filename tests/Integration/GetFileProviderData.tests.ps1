@@ -216,4 +216,27 @@ Describe 'JSON and YAML file equivalence in Get-FileProviderData' {
             $script:secondJson | Should -BeOfType [System.Collections.Specialized.OrderedDictionary]
         }
     }
+
+    Context 'Error handling for invalid JSON files' {
+        BeforeAll {
+            $script:invalidJsonPath = Join-Path -Path $TestDrive -ChildPath 'Invalid.json'
+            # Unclosed brace — invalid in both JSON and YAML
+            '{"key": "value"' | Set-Content -Path $script:invalidJsonPath -Encoding utf8
+
+            $script:invalidYamlPath = Join-Path -Path $TestDrive -ChildPath 'Invalid.yml'
+            'key: [unclosed' | Set-Content -Path $script:invalidYamlPath -Encoding utf8
+        }
+
+        It 'Invalid JSON should produce an error mentioning JSON and the file path' {
+            { Get-FileProviderData -Path $script:invalidJsonPath } | Should -Throw -ExpectedMessage '*JSON*'
+        }
+
+        It 'Invalid JSON error should mention the file path' {
+            { Get-FileProviderData -Path $script:invalidJsonPath } | Should -Throw -ExpectedMessage "*$($script:invalidJsonPath)*"
+        }
+
+        It 'Invalid YAML should throw a native YAML error (not wrapped)' {
+            { Get-FileProviderData -Path $script:invalidYamlPath } | Should -Throw
+        }
+    }
 }
